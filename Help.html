@@ -1,0 +1,94 @@
+<!-- help_us_desk.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & User Guide:-</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+            background-image: url('bg_image');
+            background-size: cover;
+            background-position: center;
+            color:black; 
+        }
+        h1, h2,h {
+            color:white; 
+        }
+        p {
+            color:white; 
+        }
+        p1{
+            color: white;
+            font-size: 160%;
+        }
+        ol, ul {
+            color:white; 
+            padding-left: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.6); 
+            padding: 20px;
+        }
+        .go-back-btn {
+            background-color:blue;
+            color:white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-right-links">
+            <a href="{{url_for('about_us')}}" style="position:absolute;top:40px;right:40px;color: #fff;">About Us</a>
+            <a href="{{url_for('goback')}}" style="position: absolute;top: 40px;left: 40px;color: #fff;">&#8592; Go Back</a>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Help & User Guide</h1>
+
+        <h2>Getting Started</h2>
+        <p>Welcome to our boxing video analysis and training platform! Here's how to make the most out of our features:</p>
+
+        <ol>
+            <li><strong>Registration:</strong> Create a new account by clicking on "Register" from the main page. Provide accurate information for personalized training.</li>
+            <li><strong>Login:</strong> After registration, log in using your credentials to access the main dashboard and training modules.</li>
+            <li><strong>Profile Management:</strong> Visit the profile page to view or update your personal information such as username, password, email, and phone number.</li>
+            <li><strong>Video Analysis:</strong> Choose between "Live Input" to use your webcam for real-time boxing analysis or "Video Input" to upload recorded boxing footage for detailed feedback.</li>
+            <li><strong>Training Modules:</strong> Explore different boxing techniques and movements available in our training library. Each module provides:</li>
+        </ol>
+
+        <ul>
+            <li>Step-by-step breakdown of boxing actions and footwork.</li>
+            <li>Visual markers and keypoints for correct posture and form.</li>
+            <li>Real-time feedback on execution and performance.</li>
+        </ul>
+        <h2>Boxing Techniques and Training:-</h2>
+        <p>Improve your boxing skills with our detailed analysis and training:</p>
+
+        <ul>
+            <li><strong>Jab:</strong> Learn the basics of jabbing, including stance, reach, and timing.</li>
+            <li><strong>Cross:</strong> Master the cross punch technique for power and precision.</li>
+            <li><strong>Hook:</strong> Understand the mechanics of hook punches and body rotation.</li>
+            <li><strong>Footwork:</strong> Practice agile footwork drills for better movement and positioning in the ring.</li>
+            <li><strong>Defense:</strong> Study defensive strategies such as blocking, parrying, and slipping.</li>
+        </ul>
+
+        <p>Our platform aims to enhance your boxing skills through technology-driven analysis and personalized training. Get ready to level up your game!</p>
+        <p>HELP DESK:-If you need assistance or have questions about specific boxing techniques, refer to the Help Desk page for contact information or additional resources.</p>
+        <h1>Contact Us</h1>
+        <p>email:-abc@gmail.com<br>phno:-123456789</p> 
+    </div>
+</body>
+</html>

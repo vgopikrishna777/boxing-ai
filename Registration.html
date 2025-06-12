@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhancing Athletic Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('bg_image');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .tabs {
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .tabs button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            width: 50%; 
+            color: black; 
+        }
+
+        .tabs button:hover {
+            background-color: #ddd;
+        }
+
+        .tabs button.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 1px;
+            border-top: none;
+        }
+
+        .tabcontent.active {
+            display: block;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"], input[type="tel"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .alert {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #888;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .closebtn {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 12px 16px;
+            margin-top: 0;
+        }
+
+        .top-right-links {
+            position: absolute;
+            top: 40px;
+            right: 90px;
+        }
+
+        .top-right-links a {
+            margin-left: 20px;
+            color:#fff; 
+            text-decoration: none; 
+        }
+
+        .top-right-links a:hover {
+            cursor: pointer;
+            text-decoration: underline; 
+        }
+
+        .info {
+            position: absolute;
+            top: 60%;
+            left: 0;
+            transform: translateY(-60%);
+            color: #fff;
+            text-align: center;
+            padding: 20px; 
+            width: 700px;
+        }
+
+        .button-container {
+            display: flex; 
+            justify-content: center; 
+        }
+
+        .button-container button {
+            margin-right: 10px; 
+        } 
+        .heads{
+            margin-top: 85px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-right-links">
+            <a herf="#" onclick="show('Registration')">SignUp</a>
+            <a href="#" onclick="show('Login')">LogIn</a>
+            <a href="{{url_for('about_us')}}">About Us</a>
+            <a href="{{url_for('help')}}">Help</a>
+        </div>
+    </header>
+    <div class="info">
+        <h1>Elevate Your Game with Advanced Athletic Analysis</h1>
+        <p style="font-size: 130%;">"Welcome to our platform dedicated to enhancing athletic performance through cutting-edge analysis and insights. Whether you're a professional athlete, a coach, or an enthusiast, we provide powerful tools and expertise to take your performance to the next level."</p>
+        <div class="button-container">
+            <button onclick="show('Registration')">SignUp</button>
+            <button style="background-color: #fff; color: #000;" onclick="show('Login')">LogIn</button>
+        </div>
+    </div>
+    <div id="alertBox" class="alert" style="display: none;">
+        <div id="alertContent">{{notification}}&emsp;
+            <span class="closebtn" onclick="closeAlertBox()">&times;</span> 
+        </div>
+    </div>
+    <div  class="heads">
+        <h1 style="text-align:center;font-size:300%;color: #fff;">Enhancing Athletic Analysis</h1>
+        <h2 style="text-align:center; color: #fff;">A Video Action Detection Framework For Boxing</h2>
+    </div>
+    <div id="popupBox" class="container" style="display: none;">
+        <div class="tabs">
+            <span class="close" onclick="closeBox()" style="margin-top: -10px;">&times;</span>
+            <button id="reg" class="tablinks" onclick="openTab(event, 'Registration')">Registration</button>
+            <button id="log" class="tablinks" onclick="openTab(event, 'Login')">Login</button>
+        </div>
+
+        <div id="Registration" class="tabcontent">
+            <h2>Registration</h2>
+            <form action="/register" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="phone">Phone No:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+        <div id="Login" class="tabcontent">
+            <h2>Login</h2>
+            <form action="/login" method="post">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="login-username" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var val ="";
+        function show(value){
+            var popup = document.getElementById("popupBox")
+            popup.style.display = 'block'
+            val = value;
+            if(value=='Registration'){
+                openTab({ currentTarget: document.getElementById('reg') }, 'Registration');
+                document.getElementById('reg').classList.add("active");
+            }else if(value=='Login'){
+                openTab({ currentTarget: document.getElementById('log') }, 'Login');
+                document.getElementById('log').classList.add("active");
+            }
+        }
+
+        function closeBox(){
+            document.getElementById("popupBox").style.display = 'none';
+        }
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function closeAlertBox() {
+            var alertBox = document.getElementById('alertBox');
+            alertBox.style.display = 'none';
+        }
+
+        var alertBox = document.getElementById('alertBox');
+        var alertContent = document.getElementById('alertContent');
+
+        function showAlert(message) {
+            alertContent.innerHTML = message + '&emsp;<span class="closebtn" onclick="closeAlertBox()">&times;</span>';
+            alertBox.style.display = 'block';
+        }
+
+        var notification = "{{ notification }}";
+        if (notification.trim() == "Username already taken. Please choose a different one." || 
+            notification.trim() == "Invalid username or password") {
+            alertBox.style.backgroundColor = "#f44336";
+            showAlert(notification);
+        }
+
+        else if (notification.trim() !== ""){
+            alertBox.style.backgroundColor = "green";
+            showAlert(notification);
+        }
+        
+
+    </script>
+</body>
+</html>

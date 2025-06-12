@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+            background-image: url('profile_image');
+            background-size: cover;
+            background-repeat: no-repeat; 
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .container h1, .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .container form input {
+            width: calc(100% - 22px); 
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box; 
+            display: block; 
+        }
+
+        .container form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container form button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"], input[type="tel"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .closebtn {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 12px 16px;
+            margin-top: 0;
+        }
+
+        .content {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            color: #007bff;
+            position: fixed; 
+            top: 20px;
+            left: 20px; 
+            z-index: 2; 
+        }
+
+        .alert {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1; 
+        }
+
+        .release {
+            position: absolute;
+            top: 100px;
+            right: 101px;
+            background-color: red;
+            border-radius: 5px;
+            color: white;
+            padding: 10px;
+        }
+
+        #deleteDialog {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="alertBox" class="alert" style="display: none;">
+        <div id="alertContent">{{notification}}&emsp;
+            <span class="closebtn" onclick="closeAlertBox()">&times;</span> 
+        </div>
+    </div>
+
+    <div class="release">
+        <button type="button" onclick="showDeleteDialog()" style="background-color: red;color: white;border: none;">Delete Account</button>
+    </div>
+
+    <dialog id="deleteDialog">
+        <p>Do you really want to delete your account?</p>
+        <button onclick="deleteAccount()">Yes</button>
+        <button onclick="closeDeleteDialog()">No</button>
+    </dialog>
+
+    <div id="menu_icon" class="menu-icon" onclick="w3_open()" style="color: #fff;">&#9776;</div>
+
+    <div class="sidebar" id="mySidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="w3_close()">&times;</a>
+        <a href="{{ url_for('home')}}">Home Page</a>
+        <a href="{{ url_for('about_us')}}">About us</a>
+        <a href="{{ url_for('help')}}">Help</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <h1 style="text-align:center;font-size:300%;color: #fff;">Enhancing Athletic Analysis</h1>
+    <h2 style="text-align:center;color: #fff;">A Video Action Detection Framework For Boxing</h2>
+    <div class="container">
+        <h2>Profile Page</h2>
+        <form action="/update_profile" method="post" id="profile_form">
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="login-username" value="{{ user.username }}" required>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="login-password" value="{{ user.password }}" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            <label for="phone">Phone No:</label>
+            <input type="tel" id="phone" name="phone" value="{{ user.phone }}" required>
+            <div>
+                <button type="button" onclick="run()">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("menu_icon").style.display = "none";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("menu_icon").style.display = "block";
+        }
+
+        var alertBox = document.getElementById('alertBox');
+        var alertContent = document.getElementById('alertContent');
+
+        function closeAlertBox() {
+            var alertBox = document.getElementById('alertBox');
+            alertBox.style.display = 'none';
+        }
+        
+        function showAlert(message) {
+            alertContent.innerHTML = message + '&emsp;<span class="closebtn" onclick="closeAlertBox()">&times;</span>';
+            alertBox.style.display = 'block';
+        }
+
+        function run(){
+            var form = document.getElementById('profile_form')
+            form.submit()
+        }
+
+        var deleteDialog = document.getElementById('deleteDialog');
+
+        function showDeleteDialog() {
+            deleteDialog.showModal();
+        }
+
+        function closeDeleteDialog() {
+            deleteDialog.close();
+        }
+
+        function deleteAccount() {
+            alert('Account has been deleted successfully!');
+            window.location.href = '/delete_account';
+
+        }
+
+        var notification = "{{notification}}";
+        if (notification.trim() == "Error updating profile. Username already taken!") {
+            alertBox.style.backgroundColor = "#f44336";
+            showAlert(notification);
+        }
+
+        else if (notification.trim() == "Profile updated successfully!"){
+            alertBox.style.backgroundColor = "green";
+            showAlert(notification);
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('bg_image');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+        header {
+            padding: 20px 0; /* Adjusted padding for header */
+            color: #fff;
+            text-align: center;
+            position: relative;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 30px;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        /* Adjusted font sizes for subpoints under Our Mission */
+        .mission-point {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        .contact-info p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        .contact-info a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        .social-icons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.5em;
+        }
+        .social-icons a:hover {
+            color: #0056b3;
+        }
+        /* Tooltip styles */
+        .tooltip {
+            visibility: hidden;
+            width: 200px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .contact-btn {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            position: relative;
+        }
+        .contact-btn:hover .tooltip {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Enhancing Athletic Analysis</h1>
+        <div class="top-right-links">
+            <a href="{{url_for('help')}}" style="position:absolute;top:40px;right:40px;color: #fff;">Help</a>
+            <a href="{{url_for('goback')}}" style="position: absolute;top: 40px;left: 40px;color: #fff;">&#8592; Go Back</a>
+        </div>
+    </header>
+    <div class="container">
+        <h2 style:"text-align:center">ABOUT US</h2>
+        <h2>Our Mission:-</h2>
+        <p class="mission-point">
+            <strong>Advanced Video Analysis:</strong> Our cutting-edge framework accurately detects and analyzes boxing movements, including punches, footwork, defensive maneuvers, and more, providing detailed insights into athlete performance.
+        </p>
+        <p class="mission-point">
+            <strong>Real-time Feedback and Coaching:</strong> Athletes receive instant, actionable feedback during training or live events, enabling them to make immediate adjustments and optimize their performance.
+        </p>
+        <p class="mission-point">
+            <strong>Data-Driven Training:</strong> Coaches leverage comprehensive performance metrics to tailor training programs, focusing on specific areas for improvement based on data-driven insights.
+        </p>
+        <p class="mission-point">
+            <strong>User-Friendly Interface:</strong> Our platform is intuitive and easy to use, allowing coaches, analysts, and athletes to navigate seamlessly through the system to access analysis and customize settings.
+        </p>
+        <p class="mission-point">
+            <strong>Continuous Innovation:</strong> We are committed to continuous improvement, collaborating with sports scientists and industry experts to incorporate the latest advancements in athlete analysis into our framework.
+        </p>
+        <h2>Our Team</h2>
+        <p>
+            Our team consists of talented and passionate professionals committed to achieving our company's goals and serving our customers with excellence.
+        </p>
+        <div class="contact-info">
+            <h2>Contact Us</h2>
+            <p>
+                If you have any questions or inquiries, please don't hesitate to <a href="contact.html">contact us</a>. We're here to help!
+            </p>
+            <div class="social-icons">
+                <a href="#" class="fab fa-facebook"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-linkedin"></a>
+                <a href="#" class="fab fa-instagram"></a>
+            </div>
+        </div>
+        <div>
+            <p>email:-abc@gmail.com<br>phno:-123456789</p> 
+        </div>
+    </div>
+</body>
+</html>

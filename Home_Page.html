@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhancing Athletic Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('home_page');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+        }
+
+        .container {
+            width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .heading {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subheading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .data-frame {
+            display: flex;
+            align-items: center;
+        }
+
+        .data-label {
+            width : 400px;
+            height: 400px;
+            /*font-size: 20px;*/
+            margin-top: 20px;
+            margin-right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            /*padding: 10px;*/
+            display: flex;
+            /*flex-direction: column;*/
+            justify-content: center;
+            align-items: center;
+        }
+
+        .data-display {
+            /*width : 400px;*/
+            font-size: 20px;
+            margin-top: 10px;
+            margin-right: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+
+        .data-display h{
+            display: inline;
+            margin-right: 150px; 
+        }
+
+        .video-frame {
+            width: 1000px;
+            height: 400px;
+            background-color: black;
+            margin-top: 20px;
+        }
+        
+        .button,
+        select {
+            padding: 10px 20px;
+            font-size: 16px;
+            width: 200px;
+            display: inline-block; 
+            vertical-align: middle;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: #007bff;
+            text-align: center;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .actionDetection {
+            display: flex;
+            align-items: center;
+            gap: 50px; /* Space between elements */
+        }
+        .actionDetection form {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between form elements */
+        }
+        .actionDetection select,
+        .actionDetection button {
+            display: inline-block;
+        }
+
+        .alert {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: green; 
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1; 
+        }
+
+        .closebtn {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 12px 16px;
+            margin-top: -10px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .closebtn {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 12px 16px;
+            margin-top: 0;
+        }
+
+        .content {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            color: white;
+            position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            z-index: 2; 
+        }
+        
+        .release {
+            position: absolute;
+            top: 100px;
+            right: 101px;
+            background-color: red;
+            color: white;
+            padding: 10px;
+        }
+
+        .bag {
+            width: 100px;
+            height: 300px;
+            background-color: #d9534f;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .rope {
+            width: 10px;
+            height: 50px;
+            background-color: #000;
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="alertBox" class="alert" style="display: none;">
+        <div id="alertContent">{{notification}}&emsp;
+            <span class="closebtn" onclick="closeAlertBox()">&times;</span> 
+        </div>
+    </div>
+    <form action="/release">
+        <button type="submit" class="release">End Training</button>
+    </form>
+    <div id="menu_icon" class="menu-icon" onclick="w3_open()">&#9776;</div>
+
+    <div class="sidebar" id="mySidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="w3_close()">&times;</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('about_us')}}">About Us</a>
+        <a href="{{ url_for('help')}}">Help</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="container content">
+        <div class="heading" style="color: white;">Enhancing Athletic Analysis</div>
+        <div class="subheading" style="color: white;">A Video Action Detection Framework For Boxing</div>
+        <div class="actionDetection">
+            <form action="/videostream" method="get" enctype="multipart/form-data">
+                <select name="inputSelect" id="inputSelect">
+                    <option value="Live Input">Live Input</option>
+                    <option value="Video Input">Video Input</option>
+                </select>
+                <button class="button" type="button" onclick="updateVideoStream()">Process Input</button>
+            </form>
+            <select name="actionType" id="actionType">
+                <option value="jab">Jab/Cross</option>
+                <option value="hook">Hook</option>
+                <option value="uppercut">UpperCut</option>
+            </select>
+            <div>
+                <label style="color: white;font-size: 20px;display: inline-block; margin-right: 5px;">Weight of the Person(in Kgs):</label>
+                <input type="text" id="weight" style="display: inline-block;width: 30px;" value="70">
+            </div>
+        </div>
+        <div class="data-frame">
+            <div class="data-label" style="color: white;">
+                <div class="rope"></div>
+                <div class="bag"></div>
+            </div>
+            <div class="video-frame">
+                <img id="video" src="" width="100%">
+            </div>
+        </div>
+        <div class = "data-display">
+            <h id="action" style="font-size:100%;">Rep Count: 0</h>
+            <h id="acceleration">Acceleration: 0 m/s^2</h>
+            <h id="force">Force: 0 N</h>
+            <h id="calories">Calories Burnt: 0 kcal</h>
+            <h4 id="avgForce" style="font-weight: normal;">Average Force: 0 N</h4>
+            <h4 id="fatigueLevel" style="font-weight: normal;">Fatigue Level: </h4>
+            <h2>Action Performance:</h2>
+            <p id = 'actionInfo'>
+                
+            </p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <script>
+        var previous_action = "none";
+        var rep_count = 0;
+        var jabCount = 0;
+        var hookCount = 0;
+        var uppercutCount = 0;
+        var isAnimating = false;
+        var actionTypeSelect = document.getElementById('actionType');
+        var actionInfoElement = document.getElementById('actionInfo');
+        var weight = Number(document.getElementById('weight').value);
+        var mass_of_fist = weight*0.01;
+        var startTime = Date.now();
+        var totalCalories = 0;
+        var totalForce = 0;
+        var fatigueLevel = 0;
+        var elapsedTime = 0;
+        var MET = {
+            'jab' : 4.5,
+            'hook' : 6,
+            'uppercut' : 7
+        };
+
+        actionTypeSelect.addEventListener('change', (e) => {
+            rep_count = 0;
+            const actionType = e.target.value;
+            startTime = Date.now();
+            if (actionType == 'jab'){
+                actionInfoElement.innerHTML = `
+                <strong>Jab:</strong> A jab is a quick, straight punch thrown with the lead hand, aiming for the opponent's face or chest.<br>
+                <strong>How to Perform:</strong>
+                <ul>
+                    <li>Stand in a proper boxing stance with your lead foot and hand forward.</li>
+                    <li>Keep your elbow in and extend your lead hand straight out, rotating your palm to face downwards as you punch.</li>
+                    <li>Keep your rear hand close to your face to guard against counterattacks.</li>
+                    <li>Retract your hand quickly after the punch to return to the guard position.</li>
+                </ul>
+                `;
+            } else if (actionType == 'hook'){
+                actionInfoElement.innerHTML = `
+                <strong>Hook:</strong> A hook is a curved punch thrown with a rotating motion, aiming for the opponent's head or body.<br>
+                <strong>How to Perform:</strong>
+                <ul>
+                    <li>Stand in a proper boxing stance with your lead foot and hand forward.</li>
+                    <li>Pivot on your lead foot and rotate your hips and shoulders towards the punch.</li>
+                    <li>Keep your elbow bent at a 90-degree angle and your palm facing you as you swing your lead hand in a horizontal arc.</li>
+                    <li>Follow through with the punch but keep control to quickly return to the guard position.</li>
+                </ul>
+                `;
+            } else if (actionType == 'uppercut'){
+                document.getElementById('actionInfo').innerHTML = `
+                    <strong>Uppercut:</strong> An uppercut is a punch thrown with the palm facing upwards, aiming for the opponent's chin or nose.<br>
+                    <strong>How to Perform:</strong>
+                    <ul>
+                        <li>Stand in a proper boxing stance with your lead foot and hand forward.</li>
+                        <li>Bend your knees slightly and drop your rear hand down and back.</li>
+                        <li>Drive your rear hand upwards and forwards in a tight arc, keeping your palm facing up.</li>
+                        <li>Push off your rear foot and rotate your hips and shoulders to generate power.</li>
+                        <li>Keep your lead hand close to your face to guard against counterattacks.</li>
+                        <li>Retract your hand quickly after the punch to return to the guard position.</li>
+                    </ul>
+                `;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            actionInfoElement.innerHTML = `
+                <strong>Jab:</strong> A jab is a quick, straight punch thrown with the lead hand, aiming for the opponent's face or chest.<br>
+                <strong>How to Perform:</strong>
+                <ul>
+                    <li>Stand in a proper boxing stance with your lead foot and hand forward.</li>
+                    <li>Keep your elbow in and extend your lead hand straight out, rotating your palm to face downwards as you punch.</li>
+                    <li>Keep your rear hand close to your face to guard against counterattacks.</li>
+                    <li>Retract your hand quickly after the punch to return to the guard position.</li>
+                </ul>
+            `;
+
+            const eventSource = new EventSource('/update');
+
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                var action = data.action;
+                var acceleration = data.acceleration;
+                var force = acceleration*mass_of_fist;
+                var prevRep = rep_count; 
+                
+                if (previous_action !== action && action == actionTypeSelect.value) {
+                    rep_count++;
+                    animation_times++;
+                    totalForce += force;
+                    var currentTime = Date.now();
+                    var calories = MET[actionTypeSelect.value]*((currentTime - startTime)/3600000)*weight;
+                    totalCalories += calories;
+                    elapsedTime += (currentTime)-(startTime);
+
+                    switch (actionTypeSelect.value) {
+                        case 'jab':
+                            jabCount++;
+                            break;
+                        case 'hook':
+                            hookCount++;
+                            break;
+                        case 'uppercut':
+                            uppercutCount++;
+                            break;
+                    }
+                }else{
+                    animation_times = 0;
+                }
+
+                if (action == 'none'){
+                    startTime = Date.now();
+                }
+                
+                previous_action = action;
+
+                var avgForce = (jabCount+hookCount+uppercutCount)>0 ? totalForce / (jabCount+hookCount+uppercutCount) : 0;
+                var fatigueLevel = totalForce / ((elapsedTime)/3600000);
+
+                document.getElementById('action').innerHTML = 'Rep Count: ' + rep_count;
+                document.getElementById('acceleration').innerHTML = "Acceleration: " + acceleration + " m/s²";
+                document.getElementById('force').innerHTML = "Force: " + force.toFixed(2) + " N";
+                document.getElementById('calories').innerHTML = "Calories Burnt: "+ (totalCalories/1000).toFixed(2) +" kcal";
+                document.getElementById('avgForce').innerHTML = "Average Force: " + avgForce.toFixed(2) + " N";
+                document.getElementById('fatigueLevel').innerHTML = "Fatigue Level: " + fatigueLevel.toFixed(2) ;
+
+                if (!isAnimating && animation_times == 1) {
+                    scalefactor = 50;
+                    switch(actionTypeSelect.value) {
+                        case 'jab':
+                            var direction = { x: force*scalefactor, y: 0, rotation: force*scalefactor / 10 };
+                            break;
+                        case 'hook':
+                            var direction = { x: 0, y: 0, z: force*scalefactor, rotation: force*scalefactor / 10 };  // Move into the screrighten to the 
+                            break;
+                        case 'uppercut':
+                            var direction = { x: 0, y: -force*scalefactor, rotation: -force*scalefactor / 10 };
+                            break;
+                        default:
+                            var direction = { x: 0, y: 0, rotation: 0 };
+                    }
+                    isAnimating = true;
+                    punchBag(direction)
+                    isAnimating = false;
+                }
+            }
+        });
+
+        function updateVideoStream() {
+            var imgElement = document.getElementById('video');
+            var inputSelect = document.getElementById('inputSelect').value;
+            var url = "/videostream?inputSelect=" + inputSelect;
+            imgElement.src = url;
+            startTime = Date.now();
+
+        }
+
+        function closeAlertBox() {
+            var alertBox = document.getElementById('alertBox');
+            alertBox.style.display = 'none';
+        }
+
+        function w3_open() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("menu_icon").style.display = "none";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("menu_icon").style.display = "block";
+        }             
+
+        function showAlert(message) {
+            var alertBox = document.getElementById('alertBox');
+            var alertContent = document.getElementById('alertContent');
+            alertContent.innerHTML = message + '&emsp;<span class="closebtn" onclick="closeAlertBox()">&times;</span>';
+            alertBox.style.display = 'block';
+        }
+
+        var notification = "{{ notification }}";
+        if (notification.trim() !== "") {
+            showAlert(notification);
+        }
+
+        const bag = document.querySelector('.bag');
+
+        function punchBag(direction) {
+            gsap.to(bag, {
+                duration: 0.2,
+                x: direction.x,
+                y: direction.y,
+                //z: direction.z, 
+                rotation: direction.rotation,
+                yoyo: true,
+                repeat: 1,
+                ease: "power1.inOut",
+                onComplete: () => {
+                    gsap.to(bag, {
+                        duration: 1,
+                        rotation: 0,
+                        x: 0,
+                        y: 0,
+                        //z: 0,
+                        ease: "elastic.out(1, 0.3)"
+                    });
+                }
+            });
+        }
+        
+    </script>
+</body>
+</html>
